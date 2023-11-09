@@ -9,6 +9,20 @@ var apiKey = "7c3c28474c8587a6386ddc13bfd31f56"
 var city;
 var queryURL = "http://api.openweathermap.org/data/2.5/weather?q=" + city + "&appid=" + apiKey;
 //console.log(test);
+function weatherData(data , day){
+  var name = data.city.name;
+  var date = data.list[day].dt_txt;
+  var icon = data.list[day].weather[0].icon;
+  var temp = data.list[day].main.temp;
+  var windSpeed = data.list[day].wind.speed;
+  var humidity = data.list[day].main.humidity;
+
+  test.children[1].src = 'https://openweathermap.org/img/wn/' +icon + '@2x.png';
+  test.children[0].textContent = name +" "+ date;
+  test.children[2].textContent = "Temp: " + temp +"°C";
+  test.children[3].textContent = "Wind Speed: " + windSpeed +"m/s";
+  test.children[4].textContent = "Humidity: " + humidity +"%";
+}
 function getApi(requestUrlArg) {
   fetch(proxyUrl + requestUrlArg).then(function (response) {
     //console.log(response);
@@ -20,18 +34,8 @@ function getApi(requestUrlArg) {
   .then(function (data) {
     console.log(data);
     //console.log(data.cnt);
-    var name = data.city.name;
-    var date = data.list[0].dt_txt;
-    var icon = data.list[0].weather[0].icon;
-    var temp = data.list[0].main.temp;
-    var windSpeed = data.list[0].wind.speed;
-    var humidity = data.list[0].main.humidity;
-
-    test.children[1].src = 'https://openweathermap.org/img/wn/' +icon + '@2x.png';
-    test.children[0].textContent = name +" "+ date;
-    test.children[2].textContent = "Temp: " + temp +"°C";
-    test.children[3].textContent = "Wind Speed: " + windSpeed +"m/s";
-    test.children[4].textContent = "Humidity: " + humidity +"%";
+    var number = 1
+    weatherData(data , number);
 
   });
 }
@@ -41,3 +45,16 @@ function getApi(requestUrlArg) {
 getApi(requestUrl3);
 //console.log(london);
 //getApi(requestUrl4);
+var search = document.getElementById('search');
+var input = document.getElementById('name-input');
+function showResponse(event) {
+  // Prevent default action
+  event.preventDefault();
+  var city2 = input.value;
+  getApi('api.openweathermap.org/data/2.5/forecast?q='+city2+'&appid='+apiKey)
+  //console.log(input.value)
+}
+  
+// Add listener to submit element
+search.addEventListener("click", showResponse);
+
