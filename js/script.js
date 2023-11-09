@@ -1,4 +1,3 @@
-var proxyUrl = 'https://cors-anywhere.herokuapp.com/';//gets accross cors
 var day0 = document.getElementById('0')
 var day1 = document.getElementById('1')
 var day2 = document.getElementById('2')
@@ -42,7 +41,7 @@ function weatherData(data , day , whichDay){
   whichDay.children[4].textContent = "Humidity: " + humidity +"%";
 }//prints all the weather data to the html
 function getApi(requestUrlArg) {
-  fetch(proxyUrl + requestUrlArg).then(function (response) {
+  fetch('https://' + requestUrlArg).then(function (response) {
     if (response.status === 200) {
       bool = true;
     }else{
