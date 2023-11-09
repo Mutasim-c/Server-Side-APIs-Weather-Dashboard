@@ -19,14 +19,13 @@ function renderVisitedPlaces(){
   if (!storedPlaces) {
     return;
   }
-  console.log(storedPlaces)
   visitedPlaces = storedPlaces;
   for (var i = 0; i < visitedPlaces.length; i++) { 
     var newList = document.createElement("li");
     newList.textContent = visitedPlaces[i];
     list.appendChild(newList);
   }
-}
+}//gets all the places previously visited and stores them to the page on startup
 
 function weatherData(data , day , whichDay){
   var name = data.city.name;
